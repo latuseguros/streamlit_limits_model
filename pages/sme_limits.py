@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import pathlib
 
 st.markdown("# SME Limits Calculator 🎈")
 
@@ -7,7 +8,7 @@ df_list = ['df_sme_PI_limits','df_sme_DO_limits','df_sme_cyber_limits','sme_PI_R
 
 csv_list = [x.strip('df_') for x in df_list]
 
-path = '/Users/hdnovak/Documents/Latu/Models/limits_model'
+path = pathlib.Path().resolve()
 
 df_DO_limits = pd.read_parquet(f'{path}/Data/sme_DO_limits.parquet')
 df_PI_limits = pd.read_parquet(f'{path}/Data/sme_PI_limits.parquet')
