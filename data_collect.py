@@ -1,9 +1,11 @@
 import pandas as pd
 import gspread as gs 
 import os
-import sys
+import pathlib
 
 #functions to pull data from g-sheets
+
+path = pathlib.Path().resolve()
 
 def get_sheet_data(url,sheet_name):
     sh = gc.open_by_url(url)
@@ -26,8 +28,8 @@ if __name__ == "__main__":
     
     for df,parquet in zip(startup_df_list,startup_csv_list):
         df = get_sheet_data('https://docs.google.com/spreadsheets/d/1qhnjWeHugVGcxiBbEJg0BRa_fDTbRTB9p1W94eXugQY/edit#gid=0',parquet)
-        df.to_parquet(f'Models/limits_model/Data/{parquet}.parquet')
+        df.to_parquet(f'{path}/Data/{parquet}.parquet')
     
     for df,parquet in zip(sme_df_list,sme_csv_list):
         df = get_sheet_data('https://docs.google.com/spreadsheets/d/1qhnjWeHugVGcxiBbEJg0BRa_fDTbRTB9p1W94eXugQY/edit#gid=0',parquet)
-        df.to_parquet(f'Models/limits_model/Data/{parquet}.parquet')
+        df.to_parquet(f'{path}/Data/{parquet}.parquet')

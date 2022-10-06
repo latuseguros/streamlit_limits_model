@@ -1,5 +1,7 @@
 import pandas as pd
 import streamlit as st
+import pathlib
+
 
 st.markdown("# Startup Limits Calculator 🎈")
 
@@ -7,7 +9,7 @@ df_list = ['df_startup_DO_limits','df_startup_EO_limits','df_startup_DO_risk','d
 
 csv_list = [x.strip('df_') for x in df_list]
 
-path = '/Users/hdnovak/Documents/Latu/Models/limits_model'
+path = pathlib.Path().resolve()
 
 df_DO_limits = pd.read_parquet(f'{path}/Data/startup_DO_limits.parquet')
 df_EO_limits = pd.read_parquet(f'{path}/Data/startup_EO_limits.parquet')
