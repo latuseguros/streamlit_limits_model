@@ -44,17 +44,17 @@ if st.button('Calculate Limits, Risk and Premium'):
     if session_product == 'PI':
         limits = df_PI_limits.query('Industry == @session_industry')[session_revenue].iloc[0]
         RoL = df_PI_RoL.query('Industry == @session_industry')[session_revenue].iloc[0]
-        premium = limits*RoL
+        premium = limits*(RoL/100)
 
     elif session_product == 'D&O':
         limits = df_DO_limits.query('Industry == @session_industry')[session_revenue].iloc[0]
         RoL = df_DO_RoL.query('Industry == @session_industry')[session_revenue].iloc[0]
-        premium = limits*RoL
+        premium = limits*(RoL/100)
 
     elif session_product == 'CYBER':
         limits = df_cyber_limits.query('Industry == @session_industry')[session_revenue].iloc[0]
         RoL = df_cyber_RoL.query('Industry == @session_industry')[session_revenue].iloc[0]
-        premium = limits*RoL
+        premium = limits*(RoL/100)
     
     st.write(f'Limits: {limits}')
     st.write(f'RoL: {RoL}')
