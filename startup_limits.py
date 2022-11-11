@@ -55,9 +55,8 @@ if st.button('Calculate Limits, Risk and Premium'):
         risk = df_EO_risk.query('Industry == @session_industry')[session_type].iloc[0]
         RoL = df_RoL.query('Product == @session_product')[risk].iloc[0]
         premium = float(limits*(RoL/100))
-        premium = '$' + format(premium, ',.2f')
     
     st.write(f'Limits: {limits}')
     st.write(f'Risk: {risk}')
     st.write(f'RoL: {RoL}')
-    st.write(f'Premium: {premium}')
+    st.write(f'Premium: '+'$'+format(premium,',.2f'))
