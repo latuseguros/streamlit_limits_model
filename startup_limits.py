@@ -23,6 +23,8 @@ founding_list = df_DO_limits.iloc[: , 1:].columns
 
 left_column, right_column = st.columns(2)
 
+formattedList = ['$'+format(member,',.2f') for member in founding_list]
+
 with left_column:
     st.selectbox('Insert the product that you are limiting',df_RoL['Product'].unique(),key = 'product')
     st.selectbox('Insert here founding of the Company', founding_list, key='founding',help='The value that the company raised on their current round')
@@ -56,7 +58,7 @@ if st.button('Calculate Limits, Risk and Premium'):
         RoL = df_RoL.query('Product == @session_product')[risk].iloc[0]
         premium = float(limits*(RoL/100))
     
-    st.write(f'Limits: {limits}')
+    st.write(f'Limits: '+'$'+format(limits,',.2f'))
     st.write(f'Risk: {risk}')
-    st.write(f'RoL: {RoL}')
+    st.write(f'RoL: '+'{:. 0%}'. format(RoL))
     st.write(f'Premium: '+'$'+format(premium,',.2f'))
