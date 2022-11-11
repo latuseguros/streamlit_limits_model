@@ -56,6 +56,6 @@ if st.button('Calculate Limits, Risk and Premium'):
         RoL = df_cyber_RoL.query('Industry == @session_industry')[session_revenue].iloc[0]
         premium = limits*(RoL/100)
     
-    st.write(f'Limits: {limits}')
-    st.write(f'RoL: {RoL}')
-    st.write(f'Premium: {premium}')
+    st.write(f'Limits: '+'$'+format(limits,',.2f'))
+    st.write(f'RoL: '+"{0:.0%}".format(RoL/100))
+    st.write(f'Premium: '+'$'+format(premium,',.2f'))
