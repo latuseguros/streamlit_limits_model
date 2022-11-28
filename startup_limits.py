@@ -59,6 +59,3 @@ if st.button('Calculate Limits, Risk and Premium'):
         premium = float(limits*(RoL/100))
     
     st.write(f'Limits: '+'$'+format(limits,',.2f'))
-    st.write(f'Risk: {risk}')
-    st.write(f'RoL: '+"{0:.0%}".format(RoL/100))
-    st.write(f'Premium: '+'$'+format(premium,',.2f'))
