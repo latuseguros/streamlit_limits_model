@@ -4,19 +4,11 @@ import pathlib
 
 st.markdown("# SME Limits Calculator 🎈")
 
-df_list = ['df_sme_PI_limits','df_sme_DO_limits','df_sme_cyber_limits','sme_PI_RoL','sme_cyber_RoL','sme_DO_RoL']
-
-csv_list = [x.strip('df_') for x in df_list]
-
 path = pathlib.Path().resolve()
 
-df_DO_limits = pd.read_parquet(f'{path}/Data/sme_DO_limits.parquet')
-df_PI_limits = pd.read_parquet(f'{path}/Data/sme_PI_limits.parquet')
-df_cyber_limits = pd.read_parquet(f'{path}/Data/sme_PI_limits.parquet')
-
-df_DO_RoL = pd.read_parquet(f'{path}/Data/sme_DO_RoL.parquet')
-df_PI_RoL = pd.read_parquet(f'{path}/Data/sme_PI_RoL.parquet')
-df_cyber_RoL = pd.read_parquet(f'{path}/Data/sme_cyber_RoL.parquet')
+df_DO_limits = pd.read_csv(f'{path}/Data/sme_DO_limits.csv')
+df_PI_limits = pd.read_csv(f'{path}/Data/sme_PI_limits.csv')
+df_cyber_limits = pd.read_csv(f'{path}/Data/sme_PI_limits.csv')
 
 revenue_list = df_DO_limits.iloc[: , 1:].columns
 
@@ -27,33 +19,22 @@ left_column, right_column = st.columns(2)
 with left_column:
     st.selectbox('Insert here revenue of the Company', revenue_list, key='revenue',help='The value that the company raised as yearly revenue')
 
+with right_column:
+    st.selectbox('Insert the company industry', df_PI_limits['TYPE'].unique(), key = 'industry')
+
 session_product = st.session_state.product
 session_revenue = st.session_state.revenue
-
-if session_product == 'PI':
-    with right_column:
-        st.selectbox('Insert the company industry', df_PI_limits['Industry'].unique(), key = 'industry')
-else:
-    with right_column:
-        st.selectbox('Insert the company industry', df_DO_limits['Industry'].unique(), key = 'industry')
-
 session_industry = st.session_state.industry 
 
 
 if st.button('Calculate Limits, Risk and Premium'):
     if session_product == 'PI':
-        limits = df_PI_limits.query('Industry == @session_industry')[session_revenue].iloc[0]
-        RoL = df_PI_RoL.query('Industry == @session_industry')[session_revenue].iloc[0]
-        premium = limits*(RoL/100)
+        limits = df_PI_limits.query('TYPE == @session_industry')[session_revenue].iloc[0]
 
     elif session_product == 'D&O':
-        limits = df_DO_limits.query('Industry == @session_industry')[session_revenue].iloc[0]
-        RoL = df_DO_RoL.query('Industry == @session_industry')[session_revenue].iloc[0]
-        premium = limits*(RoL/100)
+        limits = df_DO_limits.query('TYPE == @session_industry')[session_revenue].iloc[0]
 
     elif session_product == 'CYBER':
-        limits = df_cyber_limits.query('Industry == @session_industry')[session_revenue].iloc[0]
-        RoL = df_cyber_RoL.query('Industry == @session_industry')[session_revenue].iloc[0]
-        premium = limits*(RoL/100)
+        limits = df_cyber_limits.query('TYPE == @session_industry')[session_revenue].iloc[0]
     
     st.write(f'Limits: '+'$'+format(limits,',.2f'))
