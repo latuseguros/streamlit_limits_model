@@ -36,7 +36,7 @@ if st.button('Calculate Limits, Risk and Premium'):
     elif session_product == 'PI':
         limits = df_EO_limits.query('TYPE == @session_industry')[session_founding].iloc[0]
 
-    elif session_product == 'CYBER':
+    elif session_product == 'Cyber':
         limits = df_cyber_limits.query('TYPE == @session_industry')[session_founding].iloc[0]
     
     st.write(f'Limits: '+'$'+format(limits,',.2f'))
