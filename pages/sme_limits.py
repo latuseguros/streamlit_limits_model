@@ -12,8 +12,6 @@ df_cyber_limits = pd.read_csv(f'{path}/Data/sme_PI_limits.csv')
 
 revenue_list = df_DO_limits.iloc[: , 1:].columns
 
-st.selectbox('Insert the product that you are limiting',['PI','D&O','Cyber'],key = 'product')
-
 left_column, right_column = st.columns(2)
 
 with left_column:
@@ -21,6 +19,8 @@ with left_column:
 
 with right_column:
     st.selectbox('Insert the company industry', df_PI_limits['TYPE'].unique(), key = 'industry')
+
+st.selectbox('Insert the product that you are limiting',['PI','D&O','Cyber'],key = 'product')
 
 session_product = st.session_state.product
 session_revenue = st.session_state.revenue
